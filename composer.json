@@ -1,0 +1,17 @@
+{
+    "name": "ahmedhelalahmed/builder-design-pattern-in-php",
+    "description": "Builder design pattern in php",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BuilderDesignPatternInPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Ahmed Helal Ahmed",
+            "email": "ahmed.helal.online@gmail.com"
+        }
+    ],
+    "require": {}
+}
