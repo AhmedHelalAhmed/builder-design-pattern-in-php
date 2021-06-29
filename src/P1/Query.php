@@ -62,7 +62,7 @@ class Query
             }
 
             if ($whereField) {
-                $query .= "$whereField $whereOperator '$whereValue'";
+                $query .= " $whereField $whereOperator '$whereValue'";
             }
 
             if ($limitOffset) {
@@ -73,10 +73,14 @@ class Query
             }
 
         } elseif ($type === 'postgres') {
-            $query = "SELECT " . implode(", ", $selectFields) . " FROM " . $selectTableName;
+            if (count($selectFields)) {
+                $query = "SELECT " . implode(", ", $selectFields) . " FROM " . $selectTableName;
+            } else {
+                $query = "SELECT * FROM " . $selectTableName;
+            }
 
             if ($whereField) {
-                $query .= "$whereField $whereOperator '$whereValue'";
+                $query .= " $whereField $whereOperator '$whereValue'";
             }
 
             if ($limitOffset) {
