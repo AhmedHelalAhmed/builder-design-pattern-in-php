@@ -2,15 +2,59 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use BuilderDesignPatternInPhp\Builders\StandardBuilder;
-use BuilderDesignPatternInPhp\Builders\VariantBuilder;
-use BuilderDesignPatternInPhp\Director;
 
-$director = new Director(new VariantBuilder());
-$product = $director->createProduct();
-var_dump($product);
+use BuilderDesignPatternInPhp\P1\Query;
+use BuilderDesignPatternInPhp\S1\Builders\MysqlQueryBuilder;
+use BuilderDesignPatternInPhp\S1\Builders\PostgresQueryBuilder;
+use BuilderDesignPatternInPhp\S1\Director;
 
 
-$director->changeBuilder(new StandardBuilder());
-$product = $director->createProduct();
-var_dump($product);
+$mysqlQuery = new Query("mysql",
+    "users",
+    ["name", "email", "password"],
+    "age",
+    18,
+    ">",
+    10,
+    20);
+echo ($mysqlQuery->getStatement());
+echo "<br>";
+$postgresQuery = new Query("postgres",
+    "users",
+    ["name", "email", "password"],
+    "age",
+    18,
+    ">",
+    10,
+    20);
+echo($postgresQuery->getStatement());
+echo "<br><br><br>";
+
+
+
+$director = new Director(new MysqlQueryBuilder());
+$mysqlQuery = $director->createQuery(
+    "users",
+    ["name", "email", "password"],
+    "age",
+    18,
+    ">",
+    10,
+    20
+);
+echo($mysqlQuery->getStatement());
+echo "<br>";
+
+
+$director->changeBuilder(new PostgresQueryBuilder());
+$postgresQuery = $director->createQuery(
+    "users",
+    ["name", "email", "password"],
+    "age",
+    18,
+    ">",
+    10,
+    20
+);
+echo($postgresQuery->getStatement());
+echo "<br><br><br><br><br><br><br><br>";
